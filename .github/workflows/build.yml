@@ -1,0 +1,28 @@
+name: Build IPA
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+      - name: Generar proyecto
+        run: xcodegen generate
+      - name: Compilar sin firmar
+        run: |
+          xcodebuild -project Turbo.xcodeproj -scheme Turbo \
+            -configuration Release -sdk iphoneos -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+      - name: Empaquetar .ipa
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/Turbo.app Payload/
+          zip -r Turbo.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Turbo-ipa
+          path: Turbo.ipa
