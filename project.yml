@@ -1,0 +1,27 @@
+name: Turbo
+options:
+  bundleIdPrefix: com.david.turbo
+  deploymentTarget:
+    iOS: "16.0"
+targets:
+  Turbo:
+    type: application
+    platform: iOS
+    sources: [Game]
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        PRODUCT_BUNDLE_IDENTIFIER: com.david.turbo
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Turbo
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIStatusBarHidden: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+schemes:
+  Turbo:
+    build:
+      targets:
+        Turbo: all
